@@ -1,4 +1,4 @@
-package Window;
+package window;
 
 public class App {
 
