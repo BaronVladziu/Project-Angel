@@ -34,7 +34,7 @@ public class WavBuffer<C> {
         return this.right;
     }
 
-    public int size() {
+    public long size() {
         return this.left.size();
     }
 

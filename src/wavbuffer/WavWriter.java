@@ -14,24 +14,23 @@ public class WavWriter {
         this.sampleRate = sampleRate;
     }
 
-    public void writeFile(WavBuffer<Integer> wavBuffer, String fileName) {
+    public void writeFile(WavBuffer<Double> wavBuffer, String fileName) {
         try {
             WavFile wavFile = WavFile.newWavFile(new File(fileName + ".wav"), 2,
                     wavBuffer.size(), 16, sampleRate);
 
-            long[][] buffer = new long[2][100];
-            long frameCounter = 0;
+            double[][] buffer = new double[2][10000];
 
-            while (frameCounter < wavBuffer.size()) {
+            while (wavBuffer.size() > 0) {
                 long remaining = wavFile.getFramesRemaining();
-                int toWrite = (remaining > 100) ? 100 : (int) remaining;
-                for (int s = 0 ; s < toWrite ; s++, frameCounter++) {
-                    StereoSample<Integer> stereoSample = wavBuffer.popSample();
-                    buffer[0][s] = (long)(stereoSample.left);
-                    buffer[1][s] = (long)(stereoSample.right);
+                long toWrite = (remaining > 10000) ? 10000 : remaining;
+                for (int s = 0 ; s < toWrite ; s++) {
+                    StereoSample<Double> stereoSample = wavBuffer.popSample();
+                    buffer[0][s] = stereoSample.left;
+                    buffer[1][s] = stereoSample.right;
 //                    System.out.println(buffer[0][s] + " , " + buffer[1][s]);
                 }
-                wavFile.writeFrames(buffer, toWrite);
+                wavFile.writeFrames(buffer, (int)toWrite);
             }
 
             wavFile.close();
