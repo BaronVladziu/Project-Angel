@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="WavFile">
-    <CLASSES />
-    <JAVADOC />
-    <SOURCES>
-      <root url="file://$PROJECT_DIR$/lib/WavFile" />
-    </SOURCES>
-  </library>
-</component>
